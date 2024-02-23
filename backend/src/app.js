@@ -2,6 +2,7 @@ const express = require('express')
 const cors = require('cors')
 const config = require('./config')
 const routes = require('./routes')
+const db = require('./database')
 const { errorHandler } = require("./util/errors")
 
 const PORT = config.Express.Port
@@ -19,6 +20,7 @@ app.use(errorHandler)
 
 // functions
 const StartServer = () => {
+  db.Connect()
   app.listen(PORT, () => {
     console.log(`Express running on port ${PORT}`)
   })
