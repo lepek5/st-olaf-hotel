@@ -11,7 +11,10 @@ const createError = (status, message) => {
   return err
 }
 
+const IdRequiredError = () => createError(400, 'Id is required')
+
 module.exports = {
   errorHandler,
-  createError
+  createError,
+  IdRequiredError
 }
