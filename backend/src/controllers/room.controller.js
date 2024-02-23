@@ -1,5 +1,5 @@
 const roomService = require('../services/room.service')
-const { createError } = require("../util/errors")
+const { createError, IdRequiredError } = require("../util/errors")
 
 const getAll = async (req, res, next) => {
   try {
@@ -12,7 +12,7 @@ const getAll = async (req, res, next) => {
 
 const getById = async (req, res, next) => {
   const { id } = req.params
-  if (!id) return next(createError(400, 'Id is required'))
+  if (!id) return next(IdRequiredError())
   try {
     const room = await roomService.getById(id)
     res.status(200).json(room)
@@ -38,7 +38,7 @@ const updateById = async (req, res, next) => {
   const updateRequest = req.body
   const { id } = req.params
   if (!updateRequest) return next(createError(400, 'Missing request body'))
-  if (!id) return next(createError(400, 'Id is required'))
+  if (!id) return next(IdRequiredError())
   try {
     const updated = await roomService.updateById(id, updateRequest)
     res.status(200).json(updated)
@@ -49,7 +49,7 @@ const updateById = async (req, res, next) => {
 
 const deleteById = async (req, res, next) => {
   const { id } = req.params
-  if (!id) return next(createError(400, 'Missing id'))
+  if (!id) return next(IdRequiredError())
   try {
     const deleted = await roomService.deleteById(id)
     if (!deleted) return next(createError(400, `Id ${id} not found`))
