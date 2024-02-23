@@ -52,7 +52,7 @@ const deleteById = async (req, res, next) => {
   if (!id) return next(IdRequiredError())
   try {
     const deleted = await roomService.deleteById(id)
-    if (!deleted) return next(createError(400, `Id ${id} not found`))
+    if (!deleted) return next(createError(404, `Id ${id} not found`))
     res.status(204)
   } catch (err) {
     return next(err)
