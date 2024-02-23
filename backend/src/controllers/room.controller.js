@@ -53,7 +53,7 @@ const deleteById = async (req, res, next) => {
   try {
     const deleted = await roomService.deleteById(id)
     if (!deleted) return next(createError(404, `Id ${id} not found`))
-    res.status(204)
+    res.status(204).send()
   } catch (err) {
     return next(err)
   }
